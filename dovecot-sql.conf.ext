@@ -1,0 +1,19 @@
+# SQL queries for vmail
+# This file has to be owned by root and have 0600 permissions
+
+driver = mysql
+connect = host=localhost dbname=mail user=mail password=xxxxxxxxxxxxxx
+
+default_pass_scheme = SHA512-CRYPT
+
+password_query = \
+	SELECT username, domain, password \
+	FROM user \
+	WHERE username = '%n' AND domain = '%d'
+
+user_query = \
+	SELECT uid, gid, home \
+	FROM user \
+	WHERE username = '%n' AND domain = '%d'
+
+iterate_query = SELECT username, domain FROM user
