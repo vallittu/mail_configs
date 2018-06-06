@@ -9,13 +9,13 @@ USE `mail` ;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mail`.`domain` (
   `domain` VARCHAR(255) NOT NULL,
-  `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `id` INT(10) NOT NULL,
   PRIMARY KEY (`domain`),
   INDEX `id` (`id` ASC))
 ENGINE = InnoDB
-AUTO_INCREMENT = 124
 DEFAULT CHARACTER SET = utf8
-COMMENT = 'Table for storing all domains that mail system should consider as local domains and accept mail for local delivery.\n\n‘domain’ :has_many ‘user’';
+COMMENT = 'Table for storing all domains that mail system should consider as local domains and accept mail for local delivery.
+‘domain’ :has_many ‘user’';
 
 
 -- -----------------------------------------------------
@@ -40,7 +40,11 @@ CREATE TABLE IF NOT EXISTS `mail`.`user` (
     ON UPDATE CASCADE)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
-COMMENT = 'Table for storing local users for all existing domains. Primary key combination of ‘username’ and ‘domain’\n\nEvery user belongs to domain, Foreign key constraint from mail.user’domain’ to mail.domain’domain’. If domain is deleted, then user should be also deleted, so for fk -> ‘ON DELETE CASCADE’.\n\n‘user’ :belongs_to_one ‘domain’\n‘user’ :has_many ‘alias’';
+COMMENT = 'Table for storing local users for all existing domains. Primary key combination of ‘username’ and ‘domain’
+Every user belongs to domain, Foreign key constraint from mail.user’domain’ to mail.domain’domain’.
+If domain is deleted, then user should be also deleted, so for fk -> ‘ON DELETE CASCADE’.
+‘user’ :belongs_to_one ‘domain’
+‘user’ :has_many ‘alias’';
 
 
 -- -----------------------------------------------------
@@ -64,7 +68,10 @@ CREATE TABLE IF NOT EXISTS `mail`.`alias` (
 ENGINE = InnoDB
 AUTO_INCREMENT = 123458
 DEFAULT CHARACTER SET = utf8
-COMMENT = 'Table for all user aliases.\n\nUser can have multiple aliases (under single domain.) If user is deleted, aliases have to be also deleted, so ‘ON DELETE CASCADE’\n\n‘alias’ :belongs_to_one ‘user’';
+COMMENT = 'Table for all user aliases.
+User can have multiple aliases (under single domain.)
+If user is deleted, aliases have to be also deleted, so ‘ON DELETE CASCADE’
+‘alias’ :belongs_to_one ‘user’';
 
 USE `mail` ;
 
